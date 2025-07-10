@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spec Sheet Generator</title>
+  <style>
+    body { font-family: sans-serif; max-width: 1200px; margin: auto; padding: 20px; }
+    input, button, .message-box { width: 100%; box-sizing: border-box; padding: 10px; margin: 10px 0; }
+    .main-flex { display: flex; align-items: flex-start; }
+    .left-col { flex: 1; min-width: 320px; max-width: 500px; margin-right: 40px; }
+    .right-col { flex: 2; min-width: 400px; }
+    iframe { border: 1px solid #ccc; border-radius: 4px; background: #fff; }
+    .header-center { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .header-center img { display: block; margin: 0 auto 10px auto; }
+    .header-center h2, .header-center p { text-align: center; margin: 0; }
+    .header-center p { margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="header-center">
+    <img src="/static/KrowneLogo.svg" alt="Logo" style="height: 60px;">
+    <h2>Generate Product Spec Sheet</h2>
+    <p>Enter the SKU of the product to generate its spec sheet.</p>
+  </div>
+  <div class="main-flex">
+    <div class="left-col">
+      {% if message %}
+      <div id="messageBox" class="message-box" style="background-color: #f0f0f0; border: 1px solid #ccc; margin-bottom: 20px;">
+        {{ message }}
+      </div>
+      <script>
+        if (performance.navigation.type === 1) {
+          var msg = document.getElementById('messageBox');
+          if (msg) msg.style.display = 'none';
+        }
+      </script>
+      {% endif %}
+
+      <form method="POST" enctype="multipart/form-data">
+        <label>SKU:</label>
+        <input type="text" name="sku">
+        <button type="submit">Generate PDF</button> 
+      </form>
+    </div>
+    <div class="right-col">
+      {% if pdf_url %}
+        <iframe src="{{ pdf_url }}" width="100%" height="900px"></iframe>
+      {% else %}
+        <iframe src="/static/template.pdf" width="100%" height="900px"></iframe>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
