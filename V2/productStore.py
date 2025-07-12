@@ -1,6 +1,6 @@
 from typing import Dict, Optional, List
 
-from V2.ProductData import ProductData
+from ProductData import ProductData
 
 # In-memory store for products, using SKU as the key
 productStore: Dict[str, ProductData] = {}
